@@ -1,6 +1,22 @@
 _templates_suffix: .jinja
 _subdirectory: template
 
+_exclude:
+  - "README.md"
+  - "claude_personal_skills"
+  - "claude_subagents"
+  - "cursor_personal_skills"
+  - "cursor_subagents"
+  - "{% if project_type not in ['Website', 'NextJS', 'TypeScript'] %}package.json{% endif %}"
+  - "{% if project_type != 'Python' %}pyproject.toml{% endif %}"
+  - "{% if project_type not in ['iOS', 'macOS'] %}.swiftformat{% endif %}"
+  - "{% if project_type not in ['iOS', 'macOS'] %}.swiftlint.yml{% endif %}"
+  - "{% if project_type != 'PHP' %}composer.json{% endif %}"
+  - "{% if ai_tool not in ['Antigravity', 'All'] %}ANTIGRAVITY.md{% endif %}"
+  - "{% if ai_tool not in ['Claude', 'All'] %}CLAUDE.md{% endif %}"
+  - "{% if ai_tool not in ['Cursor', 'All'] %}AGENTS.md{% endif %}"
+  - "{% if ai_tool not in ['JetBrains', 'All'] %}JETBRAINS.md{% endif %}"
+
 # Project metadata
 project_name:
   type: str
