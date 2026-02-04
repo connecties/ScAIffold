@@ -286,4 +286,4 @@ Inspired by:
 
 ---
 
-**Author**: {{ author_name }} (with a touch of humor 😄)
+**Author**: Werner van Mook
