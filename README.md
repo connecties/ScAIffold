@@ -28,7 +28,7 @@ cd AI-Scaffolding
 ### Interactive Mode (Recommended)
 
 ```bash
-copier copy . /path/to/new/project
+copier copy --trust . /path/to/new/project
 ```
 
 You'll be prompted for:
@@ -175,7 +175,7 @@ One of Copier's best features is the ability to update projects when the templat
 
 ```bash
 cd /path/to/your/project
-copier update
+copier update --trust
 ```
 
 This will pull the latest template changes and apply them to your project.
@@ -185,21 +185,21 @@ This will pull the latest template changes and apply them to your project.
 ### Create a Python CLI Tool
 
 ```bash
-copier copy . ~/Projects/my-cli-tool
+copier copy --trust . ~/Projects/my-cli-tool
 # Select: Python, Antigravity, Yes to Git, Yes to Testing
 ```
 
 ### Create an iOS App
 
 ```bash
-copier copy . ~/Projects/MyiOSApp
+copier copy --trust . ~/Projects/MyiOSApp
 # Select: iOS, All (for all AI tools), Yes to Git, Yes to Testing
 ```
 
 ### Create a PHP Website
 
 ```bash
-copier copy . ~/Projects/my-website
+copier copy --trust . ~/Projects/my-website
 # Select: PHP, Claude, Yes to Git, No to Testing
 ```
 
@@ -270,7 +270,7 @@ Contributions are welcome! Please:
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Test with `copier copy . /tmp/test-project`
+4. Test with `copier copy --trust . /tmp/test-project`
 5. Submit a pull request
 
 ## License
