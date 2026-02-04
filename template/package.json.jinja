@@ -1,0 +1,40 @@
+{
+  "name": "{{ project_slug }}",
+  "version": "0.1.0",
+  "description": "{{ project_description if project_description else project_name }}",
+  "private": true,
+  {% if project_type == "NextJS" -%}
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"{% if include_testing %},
+    "test": "jest"{% endif %}
+  },
+  "dependencies": {
+    "next": "^14.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "typescript": "^5.0.0",
+    "eslint": "^8.0.0",
+    "eslint-config-next": "^14.0.0"{% if include_testing %},
+    "jest": "^29.0.0",
+    "@testing-library/react": "^14.0.0"{% endif %}
+  }
+  {% else -%}
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"{% if include_testing %},
+    "test": "jest"{% endif %}
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"{% if include_testing %},
+    "jest": "^29.0.0"{% endif %}
+  }
+  {% endif -%}
+}

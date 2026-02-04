@@ -1,0 +1,131 @@
+# {{ project_name }}
+
+{{ project_description if project_description else "A project scaffolded with AI-Scaffolding" }}
+
+## Project Type
+
+{% if project_type == "Python" -%}
+Python application
+{% elif project_type == "iOS" -%}
+iOS application (SwiftUI)
+{% elif project_type == "macOS" -%}
+macOS application (SwiftUI)
+{% elif project_type == "Website" -%}
+Website (HTML/CSS/JavaScript)
+{% elif project_type == "PHP" -%}
+PHP website
+{% elif project_type == "NextJS" -%}
+Next.js application (React)
+{% endif %}
+
+## Getting Started
+
+{% if project_type == "Python" -%}
+### Prerequisites
+- Python 3.10+
+- pip
+
+### Setup
+```bash
+# Create virtual environment
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+{% if include_testing -%}
+# Run tests
+pytest
+{% endif -%}
+```
+
+{% elif project_type in ["iOS", "macOS"] -%}
+### Prerequisites
+- Xcode 15+
+- Swift 5.9+
+
+### Setup
+```bash
+# Open project
+open {{ project_slug }}.xcodeproj
+
+# Build and run
+# Press Cmd+R in Xcode
+{% if include_testing -%}
+
+# Run tests
+# Press Cmd+U in Xcode
+{% endif -%}
+```
+
+{% elif project_type == "PHP" -%}
+### Prerequisites
+- PHP 8.1+
+- Composer
+
+### Setup
+```bash
+# Install dependencies
+composer install
+
+# Run development server
+php -S localhost:8000
+```
+
+{% elif project_type in ["Website", "NextJS"] -%}
+### Prerequisites
+- Node.js 18+
+- npm
+
+### Setup
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+{% if include_testing -%}
+# Run tests
+npm test
+{% endif -%}
+```
+
+{% endif -%}
+
+## Development
+
+{% if project_type == "Python" -%}
+- Format code: `ruff format .`
+- Lint code: `ruff check .`
+{% elif project_type in ["iOS", "macOS"] -%}
+- Format code: `swiftformat .`
+- Lint code: `swiftlint`
+{% elif project_type in ["Website", "NextJS"] -%}
+- Lint code: `npm run lint`
+{% endif %}
+
+## AI Assistant Configuration
+
+This project includes configuration files for AI assistants:
+{% if ai_tool in ["Antigravity", "All"] -%}
+- `ANTIGRAVITY.md` - Google Antigravity instructions
+{% endif -%}
+{% if ai_tool in ["Claude", "All"] -%}
+- `CLAUDE.md` - Anthropic Claude Code memory
+{% endif -%}
+{% if ai_tool in ["Cursor", "All"] -%}
+- `AGENTS.md` - Cursor AI agent instructions
+{% endif -%}
+{% if ai_tool in ["JetBrains", "All"] -%}
+- `JETBRAINS.md` - JetBrains AI Assistant instructions
+{% endif %}
+
+## Author
+
+{{ author_name }}{% if author_email %} ({{ author_email }}){% endif %}
+
+## License
+
+MIT

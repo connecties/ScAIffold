@@ -1,0 +1,117 @@
+_templates_suffix: .jinja
+_subdirectory: template
+
+# Project metadata
+project_name:
+  type: str
+  help: What is your project name?
+  
+project_slug:
+  type: str
+  help: Project slug (directory name)
+  default: "{{ project_name.lower().replace(' ', '-').replace('_', '-') }}"
+
+project_description:
+  type: str
+  help: Brief project description
+  default: ""
+
+project_type:
+  type: str
+  help: What type of project?
+  choices:
+    - Python
+    - iOS
+    - macOS
+    - Website
+    - PHP
+    - NextJS
+    - TypeScript
+    - CSharp
+
+ai_tool:
+  type: str
+  help: Which AI tool will you use?
+  choices:
+    - Antigravity
+    - Claude
+    - Cursor
+    - JetBrains
+    - All
+  default: Antigravity
+
+# Additional options
+use_git:
+  type: bool
+  help: Initialize Git repository?
+  default: true
+
+include_testing:
+  type: bool
+  help: Include testing setup?
+  default: true
+
+install_global_skills:
+  type: bool
+  help: Install Claude/Cursor global skills to home directory (~/.claude/, ~/.cursor/)?
+  default: false
+  when: "{{ ai_tool in ['Claude', 'Cursor', 'All'] }}"
+
+author_name:
+  type: str
+  help: Author name
+  default: "{{ ['It Wasn\\'t Me', 'It\\'s Working on My Local', '¯\\_(ツ)_/¯ Developer', 'Unknown Contributor', 'Probably a Developer', 'Ghost Dev', 'Dev in Progress', 'Undefined Dev', 'Some Random Dev', '404 Developer Not Found'] | random }}"
+
+author_email:
+  type: str
+  help: Author email
+  default: ""
+
+# Post-generation tasks
+_tasks:
+  # Initialize git if requested
+  - >-
+    {% if use_git %}
+    git init
+    {% endif %}
+  - >-
+    {% if use_git %}
+    git add .
+    {% endif %}
+  - >-
+    {% if use_git %}
+    git commit -m "feat: initial commit from AI-Scaffolding template"
+    {% endif %}
+  
+  # Install Claude global skills (only if they don't exist)
+  - >-
+    {% if install_global_skills and ai_tool in ['Claude', 'All'] %}
+    mkdir -p ~/.claude/skills ~/.claude/agents &&
+    cd claude_personal_skills 2>/dev/null && for skill in *; do
+      if [ -d "$skill" ] && [ ! -d ~/.claude/skills/"$skill" ]; then
+        cp -r "$skill" ~/.claude/skills/ && echo "Installed Claude skill: $skill"
+      fi
+    done; cd .. &&
+    cd claude_subagents 2>/dev/null && for agent in *; do
+      if [ -d "$agent" ] && [ ! -d ~/.claude/agents/"$agent" ]; then
+        cp -r "$agent" ~/.claude/agents/ && echo "Installed Claude agent: $agent"
+      fi
+    done; cd ..
+    {% endif %}
+  
+  # Install Cursor global skills (only if they don't exist)
+  - >-
+    {% if install_global_skills and ai_tool in ['Cursor', 'All'] %}
+    mkdir -p ~/.cursor/skills-cursor ~/.cursor/agents &&
+    cd cursor_personal_skills 2>/dev/null && for skill in *; do
+      if [ -d "$skill" ] && [ ! -d ~/.cursor/skills-cursor/"$skill" ]; then
+        cp -r "$skill" ~/.cursor/skills-cursor/ && echo "Installed Cursor skill: $skill"
+      fi
+    done; cd .. &&
+    cd cursor_subagents 2>/dev/null && for agent in *; do
+      if [ -d "$agent" ] && [ ! -d ~/.cursor/agents/"$agent" ]; then
+        cp -r "$agent" ~/.cursor/agents/ && echo "Installed Cursor agent: $agent"
+      fi
+    done; cd ..
+    {% endif %}
+

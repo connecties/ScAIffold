@@ -1,0 +1,218 @@
+# Agent Instructions - {{ project_name }}
+
+This file provides instructions for Cursor's AI Agent.
+
+## Project Context
+
+{% if project_type == "Python" -%}
+Python {{ project_description if project_description else "application" }} built with modern Python practices.
+{% elif project_type == "iOS" -%}
+iOS application built with SwiftUI{% if project_description %} for {{ project_description }}{% endif %}.
+{% elif project_type == "macOS" -%}
+macOS application built with SwiftUI{% if project_description %} for {{ project_description }}{% endif %}.
+{% elif project_type == "Website" -%}
+Website built with HTML, CSS, and JavaScript{% if project_description %} for {{ project_description }}{% endif %}.
+{% elif project_type == "PHP" -%}
+PHP-based website{% if project_description %} for {{ project_description }}{% endif %}.
+{% elif project_type == "NextJS" -%}
+Next.js application built with React{% if project_description %} for {{ project_description }}{% endif %}.
+{% elif project_type == "TypeScript" -%}
+TypeScript application{% if project_description %} for {{ project_description }}{% endif %}.
+{% elif project_type == "CSharp" -%}
+C# / .NET application{% if project_description %} for {{ project_description }}{% endif %}.
+{% endif %}
+
+## Coding Standards
+
+{% if project_type == "Python" -%}
+### Python Development
+- Use Python 3.10+
+- Format with Ruff (`ruff format .`)
+- Lint with Ruff (`ruff check .`)
+{% if include_testing -%}
+- Test with pytest (`pytest --cov`)
+{% endif -%}
+- Always include type hints
+- Use Google-style docstrings
+- Follow PEP 8 with max line length 120
+
+### Naming Conventions
+- Functions/variables: snake_case
+- Classes: PascalCase
+- Constants: UPPER_SNAKE_CASE
+- Files: snake_case.py
+
+{% elif project_type in ["iOS", "macOS"] -%}
+### Swift/SwiftUI Development
+- Use Swift 5.9+, {% if project_type == "iOS" %}iOS 17+{% else %}macOS 14+{% endif %}
+- Format with SwiftFormat (`swiftformat .`)
+- Lint with SwiftLint (`swiftlint`)
+- Follow MVVM architecture
+- Max line length 120
+
+### Naming Conventions
+- Types: PascalCase
+- Functions/variables: camelCase
+- Use descriptive names
+
+{% elif project_type in ["Website", "NextJS", "PHP"] -%}
+### Web Development
+{% if project_type == "PHP" -%}
+- Use PHP 8.1+
+- Follow PSR-12 coding standard
+- Use Composer for dependencies
+{% endif -%}
+{% if project_type == "NextJS" -%}
+- Use Next.js with React
+- Follow React best practices
+{% endif -%}
+- Write semantic HTML5
+- Use modern CSS (Flexbox/Grid)
+- ES6+ JavaScript
+
+### Naming Conventions
+{% if project_type == "PHP" -%}
+- Classes: PascalCase
+- Functions: camelCase
+- Variables: $camelCase
+{% else -%}
+- Components: PascalCase
+- Functions/variables: camelCase
+- CSS classes: kebab-case
+{% endif %}
+
+{% elif project_type == "TypeScript" -%}
+### TypeScript Development
+- Use TypeScript 5.0+
+- Format with Prettier (`prettier --write .`)
+- Lint with ESLint (`eslint .`)
+- Type check with `tsc --noEmit`
+{% if include_testing -%}
+- Test with Jest or Vitest
+{% endif -%}
+
+### Naming Conventions
+- Types/Interfaces: PascalCase
+- Functions/variables: camelCase
+- Constants: UPPER_SNAKE_CASE
+- Files: kebab-case.ts
+
+{% elif project_type == "CSharp" -%}
+### C# / .NET Development
+- Use .NET 8.0+
+- Format with `dotnet format`
+- Build with `dotnet build`
+{% if include_testing -%}
+- Test with xUnit/NUnit/MSTest (`dotnet test`)
+{% endif -%}
+- Enable nullable reference types
+
+### Naming Conventions
+- Types/Methods: PascalCase
+- Variables/parameters: camelCase
+- Private fields: _camelCase
+- Interfaces: IPascalCase
+
+{% endif -%}
+
+## Git Workflow
+
+Use Conventional Commits:
+- `feat:` new feature
+- `fix:` bug fix
+- `docs:` documentation changes
+- `refactor:` code refactoring
+- `test:` adding or updating tests
+- `chore:` maintenance tasks
+
+Pre-commit:
+{% if include_testing -%}
+1. Run tests before committing
+{% endif -%}
+2. Write clear, concise commit messages
+
+## Workflow Guidelines
+
+### Planning
+- Start complex tasks in Plan mode
+- Get the plan right before implementing
+- Break large tasks into smaller, focused steps
+
+### Verification
+{% if include_testing -%}
+- Always verify work with tests when available
+{% endif -%}
+- Run linter after making changes
+{% if project_type in ["Website", "NextJS"] -%}
+- Test UI changes in browser when applicable
+{% elif project_type in ["iOS", "macOS"] -%}
+- Test UI changes in simulator when applicable
+{% endif %}
+
+### Error Handling
+- Use try-except/catch with proper logging
+- Provide clear error messages
+- Don't silently ignore exceptions
+
+## Tools and Commands
+
+{% if project_type == "Python" -%}
+| Task | Command |
+|------|---------|\n| Format code | `ruff format .` |
+| Lint code | `ruff check .` |
+| Fix lint issues | `ruff check --fix .` |
+{% if include_testing -%}
+| Run tests | `pytest` |
+| Run with coverage | `pytest --cov` |
+{% endif -%}
+{% elif project_type in ["iOS", "macOS"] -%}
+| Task | Command |
+|------|---------|\n| Build | `xcodebuild` |
+{% if include_testing -%}
+| Run tests | `xcodebuild test` |
+{% endif -%}
+| Format code | `swiftformat .` |
+| Lint code | `swiftlint` |
+{% elif project_type == "PHP" -%}
+| Task | Command |
+|------|---------|\n| Install deps | `composer install` |
+| Check syntax | `php -l <file>` |
+| Dev server | `php -S localhost:8000` |
+{% elif project_type in ["Website", "NextJS"] -%}
+| Task | Command |
+|------|---------|\n| Install deps | `npm install` |
+| Dev server | `npm run dev` |
+| Build | `npm run build` |
+{% if include_testing -%}
+| Run tests | `npm test` |
+{% endif -%}
+{% elif project_type == "TypeScript" -%}
+| Task | Command |
+|------|---------|
+| Install deps | `npm install` |
+| Type check | `tsc --noEmit` |
+| Lint code | `eslint .` |
+| Format code | `prettier --write .` |
+{% if include_testing -%}
+| Run tests | `npm test` |
+{% endif -%}
+| Build | `tsc` or `npm run build` |
+{% elif project_type == "CSharp" -%}
+| Task | Command |
+|------|---------|
+| Restore deps | `dotnet restore` |
+| Build | `dotnet build` |
+| Run | `dotnet run` |
+{% if include_testing -%}
+| Run tests | `dotnet test` |
+{% endif -%}
+| Format code | `dotnet format` |
+{% endif %}
+
+## Preferences
+
+- Provide concise, focused responses
+- Show code examples when helpful
+- Explain the "why" behind changes
+- Prefer editing existing files over creating new ones
+- Only create documentation when explicitly requested

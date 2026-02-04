@@ -1,0 +1,479 @@
+# JetBrains AI Assistant Instructions - {{ project_name }}
+
+This file provides instructions for JetBrains AI Assistant for the {{ project_name }} project.
+
+## Project Context
+
+{% if project_type == "Python" -%}
+Python {{ project_description if project_description else "application" }} built with modern Python practices.
+{% elif project_type == "iOS" -%}
+iOS application built with SwiftUI{% if project_description %} for {{ project_description }}{% endif %}.
+{% elif project_type == "macOS" -%}
+macOS application built with SwiftUI{% if project_description %} for {{ project_description }}{% endif %}.
+{% elif project_type == "Website" -%}
+Website built with HTML, CSS, and JavaScript{% if project_description %} for {{ project_description }}{% endif %}.
+{% elif project_type == "PHP" -%}
+PHP-based website{% if project_description %} for {{ project_description }}{% endif %}.
+{% elif project_type == "NextJS" -%}
+Next.js application built with React{% if project_description %} for {{ project_description }}{% endif %}.
+{% elif project_type == "TypeScript" -%}
+TypeScript application{% if project_description %} for {{ project_description }}{% endif %}.
+{% elif project_type == "CSharp" -%}
+C# / .NET application{% if project_description %} for {{ project_description }}{% endif %}.
+{% endif %}
+
+## JetBrains IDE Integration
+
+### AI Assistant Features
+- **Code Completion**: Use AI-powered suggestions for faster coding
+- **Refactoring**: Leverage intelligent refactoring suggestions
+- **Code Explanation**: Use "Explain Code" to understand complex logic
+- **Test Generation**: Generate unit tests with AI assistance
+- **Documentation**: Auto-generate documentation comments
+- **Code Review**: Get AI-assisted code review feedback
+
+### Keyboard Shortcuts
+- **AI Chat**: `Ctrl+Shift+A` (Windows/Linux) or `Cmd+Shift+A` (Mac)
+- **Explain Code**: Right-click → AI Actions → Explain
+- **Generate Tests**: Right-click → AI Actions → Generate Tests
+- **Refactor**: `Ctrl+Alt+Shift+T` (Windows/Linux) or `Cmd+Alt+Shift+T` (Mac)
+
+## Coding Standards
+
+{% if project_type == "Python" -%}
+### Python Development
+- **Version**: Python 3.10+
+- **IDE**: PyCharm or IntelliJ IDEA with Python plugin
+- **Formatter**: Ruff (replaces black, isort, flake8)
+  - Format: `ruff format .` or use IDE formatter
+  - Lint: `ruff check .`
+  - Fix: `ruff check --fix .`
+- **Testing**: pytest with 80%+ coverage
+  - Run tests: `pytest` or use IDE test runner
+  - With coverage: `pytest --cov`
+- **Type hints**: Required for all function parameters and return types
+- **Docstrings**: Google-style, required for all public functions, classes, and modules
+- **Line length**: 120 characters max
+- **Indentation**: 4 spaces
+
+### Type Hints
+- Use `Optional[T]` or `T | None` for nullable types
+- Use `list[T]`, `dict[K, V]` (lowercase) for Python 3.10+
+- Include type hints for all function parameters and return values
+
+### Docstring Example
+```python
+def calculate_total(items: list[Item], discount: float = 0.0) -> float:
+    """Calculate the total price of items with optional discount.
+
+    Args:
+        items: List of items to calculate total for.
+        discount: Discount percentage to apply (0.0 to 1.0).
+
+    Returns:
+        The total price after discount.
+
+    Raises:
+        ValueError: If discount is not between 0 and 1.
+    """
+```
+
+### Naming Conventions
+- Functions and variables: `snake_case`
+- Classes: `PascalCase`
+- Constants: `UPPER_SNAKE_CASE`
+- Private members: `_leading_underscore`
+- Module files: `snake_case.py`
+
+### Imports
+- Sort with Ruff (replaces isort)
+- Group: stdlib, third-party, local
+- Use absolute imports for clarity
+- Avoid wildcard imports (`from x import *`)
+
+### Error Handling
+- Use try-except with proper logging
+- Provide clear error messages
+- Don't silently ignore exceptions
+- Use structured logging with `structlog` when available
+
+{% elif project_type in ["iOS", "macOS"] -%}
+### Swift/SwiftUI Development
+- **Version**: Swift 5.9+, {% if project_type == "iOS" %}iOS 17+{% else %}macOS 14+{% endif %}
+- **IDE**: Xcode (JetBrains AppCode is discontinued, use Xcode)
+- **Architecture**: MVVM (Model-View-ViewModel)
+- **Formatter**: SwiftFormat
+  - Format: `swiftformat .`
+- **Linting**: SwiftLint
+  - Lint: `swiftlint`
+- **Line length**: 120 characters max
+- **Indentation**: 4 spaces
+
+### Naming Conventions
+- Types (classes, structs, enums, protocols): `PascalCase`
+- Functions, variables, constants: `camelCase`
+- Use descriptive names that convey intent
+- Avoid abbreviations unless widely understood
+
+### SwiftUI Best Practices
+- Prefer `@State` for view-local state
+- Use `@StateObject` for view-owned observable objects
+- Use `@ObservedObject` for passed-in observable objects
+- Use `@EnvironmentObject` for app-wide shared state
+- Keep views small and focused
+- Extract reusable components
+
+### Error Handling
+- Use `Result` type for operations that can fail
+- Throw errors for exceptional cases
+- Provide clear error messages
+- Use `do-catch` blocks appropriately
+
+{% elif project_type in ["Website", "NextJS", "PHP"] -%}
+### Web Development
+{% if project_type == "PHP" -%}
+- **PHP Version**: 8.1+
+- **IDE**: PhpStorm
+- **Dependency Manager**: Composer
+- **Autoloading**: PSR-4
+- **Coding Standard**: PSR-12
+{% endif -%}
+{% if project_type == "NextJS" -%}
+- **Framework**: Next.js (React)
+- **IDE**: WebStorm or IntelliJ IDEA Ultimate
+- **Package Manager**: npm or yarn
+- **Styling**: CSS Modules or Tailwind CSS
+{% endif -%}
+{% if project_type == "Website" -%}
+- **IDE**: WebStorm or IntelliJ IDEA
+{% endif -%}
+- **HTML**: Semantic HTML5 elements
+- **CSS**: Modern CSS with flexbox/grid
+- **JavaScript**: ES6+ features
+- **Accessibility**: WCAG 2.1 Level AA compliance
+
+### Naming Conventions
+{% if project_type == "PHP" -%}
+- Classes: `PascalCase`
+- Functions/methods: `camelCase`
+- Constants: `UPPER_SNAKE_CASE`
+- Variables: `$camelCase`
+{% else -%}
+- Components: `PascalCase` (React/JSX)
+- Functions/variables: `camelCase`
+- Constants: `UPPER_SNAKE_CASE`
+- CSS classes: `kebab-case`
+{% endif %}
+
+### Best Practices
+- Write semantic, accessible HTML
+- Use modern CSS features (Grid, Flexbox, Custom Properties)
+- Keep JavaScript modular and maintainable
+- Optimize images and assets
+- Test across browsers
+{% if project_type == "PHP" -%}
+- Validate and sanitize all user input
+- Use prepared statements for database queries
+- Follow security best practices (OWASP)
+{% endif %}
+
+{% elif project_type == "TypeScript" -%}
+### TypeScript Development
+- **Version**: TypeScript 5.0+
+- **IDE**: WebStorm or IntelliJ IDEA
+- **Runtime**: Node.js 18+ or Deno
+- **Package Manager**: npm, yarn, or pnpm
+- **Formatter**: Prettier
+  - Format: `prettier --write .` or use IDE formatter
+- **Linter**: ESLint with TypeScript plugin
+  - Lint: `eslint .`
+  - Fix: `eslint --fix .`
+- **Testing**: Jest or Vitest
+- **Type checking**: `tsc --noEmit`
+
+### Naming Conventions
+- Classes, Interfaces, Types: `PascalCase`
+- Functions, variables: `camelCase`
+- Constants: `UPPER_SNAKE_CASE`
+- Files: `kebab-case.ts` or `camelCase.ts`
+- Private members: `#privateField` or `_privateField`
+
+### TypeScript Best Practices
+- Enable `strict` mode in tsconfig.json
+- Avoid `any` type - use `unknown` if type is truly unknown
+- Use type inference where possible
+- Prefer `interface` for object shapes, `type` for unions/intersections
+- Use `readonly` for immutable properties
+- Leverage utility types (`Partial`, `Pick`, `Omit`, etc.)
+
+### Error Handling
+- Use custom Error classes for specific error types
+- Throw errors for exceptional cases
+- Use Result/Either pattern for expected failures
+- Provide clear error messages with context
+
+{% elif project_type == "CSharp" -%}
+### C# / .NET Development
+- **Version**: .NET 8.0+ (LTS)
+- **IDE**: Visual Studio, Visual Studio Code, or JetBrains Rider
+- **Formatter**: Built-in formatter or CSharpier
+  - Format: `dotnet format` or use IDE formatter
+- **Linter**: Roslyn analyzers
+- **Testing**: xUnit, NUnit, or MSTest
+  - Run tests: `dotnet test` or use IDE test runner
+- **Nullable**: Enabled (`<Nullable>enable</Nullable>`)
+
+### Naming Conventions
+- Classes, Methods, Properties: `PascalCase`
+- Local variables, parameters: `camelCase`
+- Private fields: `_camelCase` (with underscore prefix)
+- Constants: `PascalCase`
+- Interfaces: `IPascalCase` (I prefix)
+
+### C# Best Practices
+- Use nullable reference types
+- Prefer `record` for immutable data types
+- Use `async`/`await` for I/O operations
+- Leverage pattern matching
+- Use LINQ for collection operations
+- Follow SOLID principles
+- Use dependency injection
+
+### Error Handling
+- Use exceptions for exceptional cases
+- Create custom exception types when appropriate
+- Use `try-catch-finally` appropriately
+- Consider Result pattern for expected failures
+- Log exceptions with context
+
+{% endif -%}
+
+## Git Workflow
+
+### Conventional Commits
+Use the following prefixes:
+
+| Prefix | Description |
+|--------|-------------|
+| `feat:` | New feature |
+| `fix:` | Bug fix |
+| `docs:` | Documentation only |
+| `style:` | Formatting, no code change |
+| `refactor:` | Code change without feature/fix |
+| `test:` | Adding or updating tests |
+| `chore:` | Maintenance, dependencies |
+
+### Pre-Commit Checklist
+{% if project_type == "Python" -%}
+1. Run tests: `pytest` or use IDE test runner
+2. Format code: `ruff format .` or use IDE formatter
+3. Lint code: `ruff check .`
+4. Review changes: Use IDE's Git integration
+{% elif project_type in ["iOS", "macOS"] -%}
+1. Build project in Xcode
+2. Run tests: `Cmd+U` in Xcode
+3. Format code: `swiftformat .`
+4. Lint code: `swiftlint`
+5. Review changes: Use Xcode's Source Control
+{% elif project_type == "PHP" -%}
+1. Run tests (if applicable) using IDE test runner
+2. Check syntax: Use PhpStorm's code inspection
+3. Review changes: Use IDE's Git integration
+{% elif project_type == "TypeScript" -%}
+1. Type check: `tsc --noEmit`
+2. Run tests: `npm test` or use IDE test runner
+3. Lint code: `eslint .`
+4. Format code: `prettier --write .` or use IDE formatter
+5. Review changes: Use IDE's Git integration
+{% elif project_type == "CSharp" -%}
+1. Build project: `dotnet build` or use IDE
+2. Run tests: `dotnet test` or use IDE test runner
+3. Format code: `dotnet format` or use IDE formatter
+4. Review changes: Use IDE's Git integration
+{% else -%}
+1. Run tests (if applicable) using IDE test runner
+2. Lint code using IDE's code inspection
+3. Build project
+4. Review changes: Use IDE's Git integration
+{% endif %}
+
+{% if include_testing -%}
+## Testing Standards
+
+### Framework
+{% if project_type == "Python" -%}
+- Use pytest for all tests
+- Target 80%+ code coverage
+- Tests in `tests/` directory mirroring `src/` structure
+- Test files: `test_<module>.py`
+- Test functions: `test_<description>`
+
+### Fixtures
+- Use fixtures for reusable test data
+- Prefer `scope="function"` unless shared state is needed
+- Use `conftest.py` for shared fixtures
+
+### Test Commands
+- Run tests: `pytest` or use PyCharm's test runner
+- With coverage: `pytest --cov` or use IDE coverage tool
+- Verbose: `pytest -v`
+{% elif project_type in ["iOS", "macOS"] -%}
+- Use XCTest for unit and UI tests
+- Target 80%+ code coverage
+- Tests in `Tests/` directory
+- Use `@testable import` to test internal types
+
+### Test Commands
+- Run tests: `Cmd+U` in Xcode
+- View coverage: Enable code coverage in scheme settings
+{% elif project_type in ["Website", "NextJS"] -%}
+- Use Jest for unit tests
+- Use Testing Library for component tests
+- Target 80%+ code coverage
+
+### Test Commands
+- Run tests: `npm test` or use IDE test runner
+- With coverage: `npm test -- --coverage`
+{% elif project_type == "TypeScript" -%}
+- Use Jest or Vitest for unit tests
+- Target 80%+ code coverage
+- Tests in `tests/` or `__tests__/` directory
+- Test files: `*.test.ts` or `*.spec.ts`
+
+### Test Commands
+- Run tests: `npm test` or use IDE test runner
+- With coverage: `npm test -- --coverage`
+- Watch mode: `npm test -- --watch`
+{% elif project_type == "CSharp" -%}
+- Use xUnit, NUnit, or MSTest
+- Target 80%+ code coverage
+- Tests in separate test project
+- Test files: `*Tests.cs` or `*Test.cs`
+
+### Test Commands
+- Run tests: `dotnet test` or use IDE test runner
+- With coverage: `dotnet test --collect:"XPlat Code Coverage"`
+- Specific test: `dotnet test --filter FullyQualifiedName~TestName`
+{% endif %}
+{% endif -%}
+
+## IDE-Specific Tips
+
+### Code Completion
+- Use AI Assistant for context-aware code suggestions
+- Accept suggestions with `Tab` or `Enter`
+- Cycle through suggestions with arrow keys
+
+### Refactoring
+- Use AI-powered refactoring suggestions
+- Extract methods, variables, constants with AI help
+- Rename symbols safely with IDE refactoring tools
+
+### Code Review
+- Use AI Assistant to review code before committing
+- Ask AI to explain complex code sections
+- Get suggestions for code improvements
+
+### Documentation
+- Generate documentation comments with AI
+- Keep documentation up-to-date
+- Use AI to improve existing documentation
+
+## Preferences
+
+- **Concise responses**: Provide focused, actionable responses
+- **Show examples**: Include code examples when helpful
+- **Explain rationale**: Explain the "why" behind changes
+- **IDE integration**: Leverage JetBrains IDE features
+- **Proactive**: Suggest IDE features that can help
+- **Ask for clarity**: Always ask for clarification rather than making assumptions
+
+## Files to Never Commit
+
+{% if project_type == "Python" -%}
+- `__pycache__/` directories
+- `*.pyc`, `*.pyo` files
+- `.venv/`, `venv/` directories
+- `.idea/` directory (personal IDE settings)
+{% elif project_type in ["iOS", "macOS"] -%}
+- `*.xcuserstate` files
+- `DerivedData/` directory
+- `*.xcworkspace/xcuserdata/`
+{% elif project_type == "PHP" -%}
+- `vendor/` directory
+- `composer.lock` (for libraries, keep for applications)
+- `.idea/` directory (personal IDE settings)
+{% elif project_type in ["Website", "NextJS"] -%}
+- `node_modules/` directory
+- `.next/` directory (Next.js)
+- `dist/`, `build/` directories
+- `.idea/` directory (personal IDE settings)
+{% elif project_type == "TypeScript" -%}
+- `node_modules/` directory
+- `dist/`, `build/` directories
+- `*.js`, `*.d.ts` (if generated from TypeScript)
+- `.tsbuildinfo`
+- `.idea/` directory (personal IDE settings)
+{% elif project_type == "CSharp" -%}
+- `bin/`, `obj/` directories
+- `*.user` files
+- `.vs/` directory (Visual Studio)
+- `*.suo`, `*.userosscache`
+- `.idea/` directory (personal IDE settings)
+{% endif -%}
+- `.env` files with secrets
+- API keys or tokens
+- Large binary files
+
+## Quick Reference Commands
+
+{% if project_type == "Python" -%}
+| Task | Command | IDE Shortcut |
+|------|---------|--------------|
+| Format code | `ruff format .` | `Ctrl+Alt+L` / `Cmd+Alt+L` |
+| Lint code | `ruff check .` | `Ctrl+Alt+Shift+I` / `Cmd+Alt+Shift+I` |
+| Run tests | `pytest` | `Ctrl+Shift+F10` / `Ctrl+Shift+R` |
+| Run with coverage | `pytest --cov` | Use IDE coverage tool |
+{% elif project_type in ["iOS", "macOS"] -%}
+| Task | Command | Xcode Shortcut |
+|------|---------|----------------|
+| Build | `xcodebuild` | `Cmd+B` |
+| Run tests | `xcodebuild test` | `Cmd+U` |
+| Format code | `swiftformat .` | N/A |
+| Lint code | `swiftlint` | N/A |
+{% elif project_type == "PHP" -%}
+| Task | Command | IDE Shortcut |
+|------|---------|--------------|
+| Install dependencies | `composer install` | N/A |
+| Update dependencies | `composer update` | N/A |
+| Reformat code | N/A | `Ctrl+Alt+L` / `Cmd+Alt+L` |
+| Run dev server | `php -S localhost:8000` | N/A |
+{% elif project_type in ["Website", "NextJS"] -%}
+| Task | Command | IDE Shortcut |
+|------|---------||--------------|
+| Install dependencies | `npm install` | N/A |
+| Run dev server | `npm run dev` | N/A |
+| Build | `npm run build` | N/A |
+| Reformat code | N/A | `Ctrl+Alt+L` / `Cmd+Alt+L` |
+{% elif project_type == "TypeScript" -%}
+| Task | Command | IDE Shortcut |
+|------|---------||--------------|
+| Install dependencies | `npm install` | N/A |
+| Type check | `tsc --noEmit` | N/A |
+| Lint code | `eslint .` | N/A |
+| Format code | `prettier --write .` | `Ctrl+Alt+L` / `Cmd+Alt+L` |
+| Run tests | `npm test` | `Ctrl+Shift+F10` / `Ctrl+Shift+R` |
+| Build | `tsc` or `npm run build` | N/A |
+{% elif project_type == "CSharp" -%}
+| Task | Command | IDE Shortcut |
+|------|---------||--------------|
+| Restore dependencies | `dotnet restore` | N/A |
+| Build | `dotnet build` | `Ctrl+Shift+B` / `Cmd+Shift+B` |
+| Run | `dotnet run` | `Shift+F10` / `Ctrl+R` |
+| Test | `dotnet test` | `Ctrl+Shift+F10` / `Ctrl+Shift+R` |
+| Format code | `dotnet format` | `Ctrl+Alt+L` / `Cmd+Alt+L` |
+| Add package | `dotnet add package <PackageName>` | N/A |
+{% endif %}
+
+---
+*Update this file whenever JetBrains AI Assistant makes a mistake or when project standards evolve*

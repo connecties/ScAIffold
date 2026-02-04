@@ -1,0 +1,161 @@
+# Project Memory - {{ project_name }}
+
+This file provides project memory for Anthropic's Claude Code assistant.
+
+## Project Purpose
+
+{% if project_type == "Python" -%}
+Python {{ project_description if project_description else "application" }} built with modern Python practices.
+{% elif project_type == "iOS" -%}
+iOS application built with SwiftUI{% if project_description %} for {{ project_description }}{% endif %}.
+{% elif project_type == "macOS" -%}
+macOS application built with SwiftUI{% if project_description %} for {{ project_description }}{% endif %}.
+{% elif project_type == "Website" -%}
+Website built with HTML, CSS, and JavaScript{% if project_description %} for {{ project_description }}{% endif %}.
+{% elif project_type == "PHP" -%}
+PHP-based website{% if project_description %} for {{ project_description }}{% endif %}.
+{% elif project_type == "NextJS" -%}
+Next.js application built with React{% if project_description %} for {{ project_description }}{% endif %}.
+{% elif project_type == "TypeScript" -%}
+TypeScript application{% if project_description %} for {{ project_description }}{% endif %}.
+{% elif project_type == "CSharp" -%}
+C# / .NET application{% if project_description %} for {{ project_description }}{% endif %}.
+{% endif %}
+
+## Coding Standards
+
+{% if project_type == "Python" -%}
+### Python
+- **Version**: Python 3.10+
+- **Formatter**: Ruff
+- **Testing**: pytest with 80%+ coverage
+- **Type hints**: Required for all functions
+- **Docstrings**: Google-style
+- **Naming**: snake_case for functions/variables, PascalCase for classes
+{% elif project_type in ["iOS", "macOS"] -%}
+### Swift/SwiftUI
+- **Version**: Swift 5.9+, {% if project_type == "iOS" %}iOS 17+{% else %}macOS 14+{% endif %}
+- **Architecture**: MVVM
+- **Formatter**: SwiftFormat
+- **Linting**: SwiftLint
+- **Naming**: PascalCase for types, camelCase for functions/variables
+{% elif project_type in ["Website", "NextJS", "PHP"] -%}
+### Web Development
+{% if project_type == "PHP" -%}
+- **PHP Version**: 8.1+
+- **Standard**: PSR-12
+- **Dependency Manager**: Composer
+{% endif -%}
+{% if project_type == "NextJS" -%}
+- **Framework**: Next.js (React)
+- **Package Manager**: npm
+{% endif -%}
+- **HTML**: Semantic HTML5
+- **CSS**: Modern CSS (Flexbox/Grid)
+- **JavaScript**: ES6+
+{% elif project_type == "TypeScript" -%}
+### TypeScript
+- **Version**: TypeScript 5.0+
+- **Runtime**: Node.js 18+
+- **Formatter**: Prettier
+- **Linter**: ESLint
+- **Testing**: Jest or Vitest
+- **Naming**: PascalCase for types, camelCase for functions/variables
+{% elif project_type == "CSharp" -%}
+### C# / .NET
+- **Version**: .NET 8.0+
+- **IDE**: Visual Studio, VS Code, or Rider
+- **Formatter**: dotnet format
+- **Testing**: xUnit, NUnit, or MSTest
+- **Naming**: PascalCase for types/methods, camelCase for variables
+{% endif %}
+
+### General
+- Indentation: 4 spaces
+- Max line length: 120 characters
+- Error handling: Try-catch with logging
+
+## Common Workflows
+
+### Git Workflow
+Use Conventional Commits format:
+- `feat:` new feature
+- `fix:` bug fix
+- `docs:` documentation
+- `refactor:` code refactoring
+- `test:` adding tests
+- `chore:` maintenance
+
+{% if include_testing -%}
+### Testing
+{% if project_type == "Python" -%}
+- Run tests with: `pytest`
+- Run with coverage: `pytest --cov`
+{% elif project_type in ["iOS", "macOS"] -%}
+- Run tests with: `xcodebuild test`
+- In Xcode: `Cmd+U`
+{% elif project_type in ["Website", "NextJS"] -%}
+- Run tests with: `npm test`
+- Run with coverage: `npm test -- --coverage`
+{% elif project_type == "TypeScript" -%}
+- Run tests with: `npm test` or `yarn test`
+- Run with coverage: `npm test -- --coverage`
+{% elif project_type == "CSharp" -%}
+- Run tests with: `dotnet test`
+- Run with coverage: `dotnet test --collect:"XPlat Code Coverage"`
+{% endif -%}
+- Always run tests before committing
+{% endif %}
+
+### Code Quality
+{% if project_type == "Python" -%}
+- Format code: `ruff format .`
+- Lint code: `ruff check .`
+- Fix linting issues: `ruff check --fix .`
+{% elif project_type in ["iOS", "macOS"] -%}
+- Format code: `swiftformat .`
+- Lint code: `swiftlint`
+{% elif project_type == "PHP" -%}
+- Check syntax: `php -l <file>`
+{% elif project_type in ["Website", "NextJS"] -%}
+- Lint code: `npm run lint`
+- Format code: `npm run format`
+{% elif project_type == "TypeScript" -%}
+- Type check: `tsc --noEmit`
+- Lint code: `eslint .`
+- Format code: `prettier --write .`
+{% elif project_type == "CSharp" -%}
+- Build: `dotnet build`
+- Format code: `dotnet format`
+{% endif %}
+
+## Key Files
+
+- `CLAUDE.md` - This file, Claude Code memory
+{% if ai_tool in ["Antigravity", "All"] -%}
+- `ANTIGRAVITY.md` - Antigravity instructions
+{% endif -%}
+{% if ai_tool in ["Cursor", "All"] -%}
+- `AGENTS.md` - Cursor agent instructions
+{% endif -%}
+{% if ai_tool in ["JetBrains", "All"] -%}
+- `JETBRAINS.md` - JetBrains AI Assistant instructions
+{% endif -%}
+- `skills/` - Modular skills for specific domains
+
+## Known Pitfalls
+
+<!-- Add corrections here as you encounter issues -->
+<!-- Example: "When creating pytest fixtures, always use scope='function' unless shared state is explicitly needed" -->
+
+## Verification
+
+Before completing any task:
+{% if include_testing -%}
+1. Run the test suite if tests exist
+{% endif -%}
+2. Run linter to check for issues
+3. Verify changes work as expected
+
+---
+*Update this file whenever Claude makes a mistake: "Update CLAUDE.md so you don't make that mistake again"*
