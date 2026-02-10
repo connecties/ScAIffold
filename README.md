@@ -8,6 +8,7 @@ A Copier-based project scaffolding system that generates AI-ready project struct
 - 🤖 **AI Tool Support**: Choose between Antigravity, Claude, Cursor, JetBrains, or generate files for all
 - 📝 **Smart Templates**: Project-type-specific coding standards and configurations
 - 🎯 **Skills Included**: Modular skills for code-style, git-workflow, testing, and more
+- 🤖 **Autonomous Development**: Ralph and PRD skills for autonomous agent loops and requirements generation
 - 🎲 **Fun Defaults**: Random developer names like "404 Developer Not Found"
 - ⚙️ **Auto Git Setup**: Optional Git initialization with initial commit
 - 🔧 **Global Skills**: Optional installation of Claude/Cursor skills to home directory
@@ -112,17 +113,37 @@ Each file contains:
 
 ## Skills
 
-The following skills are automatically included based on project type:
+The following skills are automatically included in all projects:
 
-| Skill | Python | iOS/macOS | Web/PHP |
-|-------|--------|-----------|---------|
-| `git-workflow` | ✅ | ✅ | ✅ |
-| `code-style` | ✅ | - | - |
-| `swift-style` | - | ✅ | - |
-| `web-style` | - | - | ✅ |
-| `php-style` | - | - | PHP only |
-| `testing` | ✅ | ✅ | ✅ |
-| `llm-development` | ✅ | - | - |
+### Universal Skills (All Project Types)
+
+| Skill | Description |
+|-------|-------------|
+| `git-workflow` | Git workflow and commit conventions |
+| `testing` | Testing conventions using pytest/appropriate framework |
+| `ralph` | Autonomous agent loop for iterative user story implementation |
+| `prd` | Product Requirements Document (PRD) generator |
+
+### Project-Type-Specific Skills
+
+| Skill | Python | iOS/macOS | Web/PHP | Description |
+|-------|--------|-----------|---------|-------------|
+| `code-style` | ✅ | - | - | Python code style with Ruff |
+| `llm-development` | ✅ | - | - | LLM/ML development best practices |
+| `swift-style` | - | ✅ | - | Swift code style |
+| `web-style` | - | - | ✅ | Web development standards |
+| `php-style` | - | - | PHP only | PHP coding standards |
+
+### Autonomous Development Workflow
+
+The `ralph` and `prd` skills work together to enable autonomous development:
+
+1. **Create Requirements**: Use the `prd` skill to generate a structured Product Requirements Document with user stories
+2. **Autonomous Implementation**: Use the `ralph` skill to iteratively implement user stories from the PRD
+3. **Quality Assurance**: Ralph automatically runs quality checks and commits working code
+4. **Progress Tracking**: Ralph maintains a progress log and learns from each iteration
+
+This workflow is compatible with all AI tools (Antigravity, Claude, Cursor, JetBrains) and enables fully autonomous feature development.
 
 ## Global Skills Installation
 
@@ -256,7 +277,9 @@ AI-Scaffolding/
 │   ├── code-style/
 │   ├── git-workflow/
 │   ├── llm-development/
-│   └── testing/
+│   ├── testing/
+│   ├── ralph/              # Autonomous agent loop
+│   └── prd/                # PRD generator
 ├── ANTIGRAVITY.md          # This repo's AI instructions
 ├── CLAUDE.md               # This repo's Claude memory
 ├── AGENTS.md               # This repo's Cursor instructions

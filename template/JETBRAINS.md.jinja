@@ -357,6 +357,35 @@ Use the following prefixes:
 {% endif %}
 {% endif -%}
 
+## Available Skills
+
+This project includes modular skills in the `skills/` directory. These skills provide specialized guidance for specific tasks:
+
+### Universal Skills (All Projects)
+- **ralph** - Autonomous agent loop for iterative user story implementation from PRD files
+- **prd** - Generate structured Product Requirements Documents with user stories
+- **git-workflow** - Git workflow and commit conventions
+- **testing** - Testing standards and best practices
+
+### Project-Specific Skills
+{% if project_type == "Python" -%}
+- **code-style** - Python code style guidelines with Ruff
+- **llm-development** - LLM/ML development best practices with LangChain
+{% elif project_type in ["iOS", "macOS"] -%}
+- **swift-style** - Swift code style and SwiftUI best practices
+{% elif project_type in ["Website", "NextJS", "PHP"] -%}
+- **web-style** - Web development standards and best practices
+{% if project_type == "PHP" -%}
+- **php-style** - PHP coding standards (PSR-12)
+{% endif -%}
+{% elif project_type == "TypeScript" -%}
+- **typescript-style** - TypeScript best practices and patterns
+{% elif project_type == "CSharp" -%}
+- **csharp-style** - C# / .NET coding standards
+{% endif -%}
+
+**Usage**: To use a skill, reference it by name or view the skill file in `skills/<skill-name>/SKILL.md`. The ralph and prd skills work together to enable autonomous development workflows. You can also ask JetBrains AI Assistant to load and apply specific skills.
+
 ## IDE-Specific Tips
 
 ### Code Completion
